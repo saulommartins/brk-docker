@@ -1,0 +1,30 @@
+<VirtualHost *:443>
+    ServerAdmin webmaster@localhost
+    DocumentRoot /var/www/AgenciaVirtualSiteZonaOesteMais
+    ServerName www.zonaoestemais.com.br
+    ServerAlias www.zonaoestemais.com.br
+    <Directory /var/www/AgenciaVirtualSiteZonaOesteMais>
+        AllowOverride All
+        Order allow,deny
+        Allow from all
+    </Directory>
+
+    SSLEngine on
+    SSLCertificateFile "/etc/apache2/ssl/apache.crt"
+    SSLCertificateKeyFile "/etc/apache2/ssl/apache.key"
+
+
+    <FilesMatch "\.(cgi|shtml|phtml|php)$">
+                    SSLOptions +StdEnvVars
+    </FilesMatch>
+    <Directory /usr/lib/cgi-bin>
+                    SSLOptions +StdEnvVars
+    </Directory>
+    BrowserMatch "MSIE [2-6]" \
+                    nokeepalive ssl-unclean-shutdown \
+                    downgrade-1.0 force-response-1.0
+    BrowserMatch "MSIE [17-9]" ssl-unclean-shutdown
+
+
+
+</VirtualHost>
